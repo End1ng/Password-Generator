@@ -7,6 +7,7 @@ import getpass
 import base64
 import win32clipboard
 import win32con
+import platform
 
 def setText(aString):
     win32clipboard.OpenClipboard()
@@ -40,29 +41,10 @@ data = data[spos:epos]
 data = base64.b64encode(data)
 data = data.replace(data[lpos], chr(95), 1)
 data = data.replace(data[dpos], chr(46), 1)
-setText(data)
-print u"已存至剪切板"
-# #!/usr/bin/env python
-# import hashlib
-# import sys
-# # print hashlib.sha1("").hexdigest()
-# if len(sys.argv) != 3:sys.exit()
-# data = sys.argv[1]
-# key = sys.argv[2]
-# lpos = len(data) % 9
-# dpos = len(data) % 7
-# spos = len(data) % 28
-# epos = spos + 16
-# ans = hashlib.md5()
-# ans.update(data)
-# ans.update(key)
-# data = ans.hexdigest()
-# ans = hashlib.sha1(data)
-# ans.update(data)
-# ans.update(key)
-# data = ans.hexdigest()
-# data = data[spos:epos]
-# data = data.replace(data[lpos], chr(95), 2)
-# data = data.replace(data[dpos], chr(46), 1)
-# data = data.title()
-# print data
+
+sysstr = platform.system()
+if(sysstr =="Windows"):
+    setText(data)
+    print u"已存至剪切板"
+elif(sysstr == "Linux"):
+    print data
